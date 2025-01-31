@@ -11,24 +11,24 @@ const (
 )
 
 type Department struct {
-	ID           uint       `gorm:"primary_key;auto_increment" json:"id"`
-	Name         string     `gorm:"size:100;not null;unique;index" json:"name"`
-	Description  string     `gorm:"type:text" json:"description"`
-	HeadDoctorID uint       `gorm:"not null;index" json:"head_doctor_id"`
-	HeadDoctor   Doctor     `gorm:"foreignKey:HeadDoctorID" json:"head_doctor"`
-	Location     string     `gorm:"size:100;not null" json:"location"`
-	FloorNumber  int        `gorm:"not null" json:"floor_number"`
-	PhoneNumber  string     `gorm:"size:15" json:"phone_number"`
-	Email        string     `gorm:"size:100" json:"email"`
-	StaffCount   int        `gorm:"default:0" json:"staff_count"`
-	IsActive     bool       `gorm:"default:true" json:"is_active"`
-	Status       string     `gorm:"type:varchar(20);default:'active'" json:"status"`
-	OpenTime     string     `gorm:"size:5" json:"open_time"`  // Format: "HH:MM"
-	CloseTime    string     `gorm:"size:5" json:"close_time"` // Format: "HH:MM"
-	Capacity     int        `gorm:"default:0" json:"capacity"`
-	CreatedAt    time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt    time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt    *time.Time `sql:"index" json:"-"`
+	ID           uint       `json:"id"`
+	Name         string     `json:"name"`
+	Description  string     `json:"description"`
+	HeadDoctorID uint       `json:"head_doctor_id"`
+	HeadDoctor   Doctor     `json:"head_doctor"`
+	Location     string     `json:"location"`
+	FloorNumber  int        `json:"floor_number"`
+	PhoneNumber  string     `json:"phone_number"`
+	Email        string     `json:"email"`
+	StaffCount   int        `json:"staff_count"`
+	IsActive     bool       `json:"is_active"`
+	Status       string     `json:"status"`
+	OpenTime     string     `json:"open_time"`  // Format: "HH:MM"
+	CloseTime    string     `json:"close_time"` // Format: "HH:MM"
+	Capacity     int        `json:"capacity"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+	DeletedAt    *time.Time `json:"-"`
 }
 
 type DepartmentCreateRequest struct {

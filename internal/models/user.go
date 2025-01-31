@@ -11,19 +11,19 @@ const (
 )
 
 type User struct {
-	ID        uint       `gorm:"primary_key;auto_increment" json:"id"`
-	Name      string     `gorm:"size:100;not null;index" json:"name" validate:"required,min=2,max=100"`
-	Email     string     `gorm:"size:100;not null;unique;index" json:"email" validate:"required,email"`
-	Password  string     `gorm:"size:100;not null;" json:"-" validate:"required,min=6"`
-	Role      string     `gorm:"type:varchar(10);not null;index" json:"role" validate:"required,oneof=admin doctor patient"`
-	Version   uint       `gorm:"default:1" json:"-"`
-	CreatedBy uint       `gorm:"not null" json:"created_by"`
-	UpdatedBy uint       `gorm:"not null" json:"updated_by"`
-	Status    bool       `gorm:"default:true" json:"status"`
+	ID        uint       `json:"id"`
+	Name      string     `json:"name" validate:"required,min=2,max=100"`
+	Email     string     `json:"email" validate:"required,email"`
+	Password  string     `json:"-" validate:"required,min=6"`
+	Role      string     `json:"role" validate:"required,oneof=admin doctor patient"`
+	Version   uint       `json:"-"`
+	CreatedBy uint       `json:"created_by"`
+	UpdatedBy uint       `json:"updated_by"`
+	Status    bool       `json:"status"`
 	LastLogin *time.Time `json:"last_login,omitempty"`
-	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt *time.Time `sql:"index" json:"-"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"-"`
 }
 
 type RegisterRequest struct {

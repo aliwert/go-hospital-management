@@ -15,23 +15,23 @@ const (
 )
 
 type Appointment struct {
-	ID              uint       `gorm:"primary_key;auto_increment" json:"id"`
-	PatientID       uint       `gorm:"not null;index:idx_patient" json:"patient_id"`
-	Patient         User       `gorm:"foreignKey:PatientID" json:"patient"`
-	DoctorID        uint       `gorm:"not null;index:idx_doctor" json:"doctor_id"`
-	Doctor          Doctor     `gorm:"foreignKey:DoctorID" json:"doctor"`
-	AppointmentDate time.Time  `gorm:"not null;index:idx_date" json:"appointment_date"`
-	Status          string     `gorm:"type:varchar(20);default:'pending'" json:"status"`
-	Description     string     `gorm:"type:text" json:"description"`
-	Fee             float64    `gorm:"not null" json:"fee"`
-	PaymentStatus   string     `gorm:"type:varchar(20);default:'unpaid'" json:"payment_status"`
+	ID              uint       `json:"id"`
+	PatientID       uint       `json:"patient_id"`
+	Patient         User       `json:"patient"`
+	DoctorID        uint       `json:"doctor_id"`
+	Doctor          Doctor     `json:"doctor"`
+	AppointmentDate time.Time  `json:"appointment_date"`
+	Status          string     `json:"status"`
+	Description     string     `json:"description"`
+	Fee             float64    `json:"fee"`
+	PaymentStatus   string     `json:"payment_status"`
 	PaymentDate     *time.Time `json:"payment_date,omitempty"`
 	CancelledAt     *time.Time `json:"cancelled_at,omitempty"`
-	CancelReason    string     `gorm:"type:text" json:"cancel_reason,omitempty"`
-	Notes           string     `gorm:"type:text" json:"notes,omitempty"`
-	CreatedAt       time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt       time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt       *time.Time `sql:"index" json:"-"`
+	CancelReason    string     `json:"cancel_reason,omitempty"`
+	Notes           string     `json:"notes,omitempty"`
+	CreatedAt       time.Time  `json:"created_at"`
+	UpdatedAt       time.Time  `json:"updated_at"`
+	DeletedAt       *time.Time `json:"-"`
 }
 
 type AppointmentCreateRequest struct {

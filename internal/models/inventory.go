@@ -16,29 +16,29 @@ const (
 )
 
 type Inventory struct {
-	ID              uint       `gorm:"primary_key;auto_increment" json:"id"`
-	ItemName        string     `gorm:"size:100;not null;unique" json:"item_name"`
-	ItemCode        string     `gorm:"size:50;not null;unique" json:"item_code"`
-	Category        string     `gorm:"size:50;not null" json:"category"`
-	Description     string     `gorm:"type:text" json:"description"`
-	Quantity        int        `gorm:"not null" json:"quantity"`
-	UnitPrice       float64    `gorm:"not null" json:"unit_price"`
-	ReorderLevel    int        `gorm:"not null" json:"reorder_level"`
-	SupplierID      uint       `gorm:"not null" json:"supplier_id"`
-	Supplier        Supplier   `gorm:"foreignKey:SupplierID" json:"supplier"`
-	BatchNumber     string     `gorm:"size:50" json:"batch_number"`
+	ID              uint       `json:"id"`
+	ItemName        string     `json:"item_name"`
+	ItemCode        string     `json:"item_code"`
+	Category        string     `json:"category"`
+	Description     string     `json:"description"`
+	Quantity        int        `json:"quantity"`
+	UnitPrice       float64    `json:"unit_price"`
+	ReorderLevel    int        `json:"reorder_level"`
+	SupplierID      uint       `json:"supplier_id"`
+	Supplier        Supplier   `json:"supplier"`
+	BatchNumber     string     `json:"batch_number"`
 	ExpiryDate      time.Time  `json:"expiry_date"`
-	Location        string     `gorm:"size:100" json:"location"`
-	IsActive        bool       `gorm:"default:true" json:"is_active"`
-	Status          string     `gorm:"size:20;default:'in_stock'" json:"status"`
-	MinimumQuantity int        `gorm:"default:0" json:"minimum_quantity"`
-	MaximumQuantity int        `gorm:"default:0" json:"maximum_quantity"`
+	Location        string     `json:"location"`
+	IsActive        bool       `json:"is_active"`
+	Status          string     `json:"status"`
+	MinimumQuantity int        `json:"minimum_quantity"`
+	MaximumQuantity int        `json:"maximum_quantity"`
 	LastOrderDate   time.Time  `json:"last_order_date"`
 	LastCountDate   time.Time  `json:"last_count_date"`
-	Notes           string     `gorm:"type:text" json:"notes"`
-	CreatedAt       time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt       time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt       *time.Time `sql:"index" json:"-"`
+	Notes           string     `json:"notes"`
+	CreatedAt       time.Time  `json:"created_at"`
+	UpdatedAt       time.Time  `json:"updated_at"`
+	DeletedAt       *time.Time `json:"-"`
 }
 
 type InventoryCreateRequest struct {

@@ -15,33 +15,33 @@ const (
 )
 
 type Patient struct {
-	ID               uint       `gorm:"primary_key;auto_increment" json:"id"`
-	UserID           uint       `gorm:"not null" json:"user_id"`
-	User             User       `gorm:"foreignKey:UserID" json:"user"`
-	DateOfBirth      time.Time  `gorm:"not null" json:"date_of_birth"`
-	Gender           string     `gorm:"size:10;not null" json:"gender"`
-	BloodType        string     `gorm:"size:5" json:"blood_type"`
-	Address          string     `gorm:"size:255" json:"address"`
-	PhoneNumber      string     `gorm:"size:15" json:"phone_number"`
-	EmergencyContact string     `gorm:"size:100" json:"emergency_contact"`
-	EmergencyPhone   string     `gorm:"size:15" json:"emergency_phone"`
-	Insurance        string     `gorm:"size:100" json:"insurance"`
-	InsuranceNo      string     `gorm:"size:50" json:"insurance_no"`
-	Allergies        string     `gorm:"type:text" json:"allergies"`
-	MedicalHistory   string     `gorm:"type:text" json:"medical_history"`
-	MaritalStatus    string     `gorm:"size:20" json:"marital_status"`
-	Occupation       string     `gorm:"size:100" json:"occupation"`
+	ID               uint       `json:"id"`
+	UserID           uint       `json:"user_id"`
+	User             User       `json:"user"`
+	DateOfBirth      time.Time  `json:"date_of_birth"`
+	Gender           string     `json:"gender"`
+	BloodType        string     `json:"blood_type"`
+	Address          string     `json:"address"`
+	PhoneNumber      string     `json:"phone_number"`
+	EmergencyContact string     `json:"emergency_contact"`
+	EmergencyPhone   string     `json:"emergency_phone"`
+	Insurance        string     `json:"insurance"`
+	InsuranceNo      string     `json:"insurance_no"`
+	Allergies        string     `json:"allergies"`
+	MedicalHistory   string     `json:"medical_history"`
+	MaritalStatus    string     `json:"marital_status"`
+	Occupation       string     `json:"occupation"`
 	Height           float32    `json:"height"`
 	Weight           float32    `json:"weight"`
 	BMI              float32    `json:"bmi"`
-	ChronicDiseases  string     `gorm:"type:text" json:"chronic_diseases"`
-	Medications      string     `gorm:"type:text" json:"medications"`
-	Status           string     `gorm:"size:20;default:'active'" json:"status"`
+	ChronicDiseases  string     `json:"chronic_diseases"`
+	Medications      string     `json:"medications"`
+	Status           string     `json:"status"`
 	LastVisit        *time.Time `json:"last_visit"`
 	NextVisit        *time.Time `json:"next_visit"`
-	CreatedAt        time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt        time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt        *time.Time `sql:"index" json:"-"`
+	CreatedAt        time.Time  `json:"created_at"`
+	UpdatedAt        time.Time  `json:"updated_at"`
+	DeletedAt        *time.Time `json:"-"`
 }
 
 type PatientCreateRequest struct {
