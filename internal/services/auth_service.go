@@ -5,17 +5,19 @@ import (
 	"time"
 
 	"github.com/aliwert/go-hospital-management/internal/models"
+	"github.com/aliwert/go-hospital-management/internal/repositories"
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
 type AuthService struct {
-	db *gorm.DB
+	userRepo *repositories.UserRepository
 }
 
-func NewAuthService(db *gorm.DB) *AuthService {
-	return &AuthService{db: db}
+func NewAuthService(userRepo *repositories.UserRepository) *AuthService {
+	return &AuthService{
+		userRepo: userRepo,
+	}
 }
 
 func (s *AuthService) Register(req *models.RegisterRequest) (*models.User, error) {
@@ -32,48 +34,43 @@ func (s *AuthService) Register(req *models.RegisterRequest) (*models.User, error
 		Status:   true,
 	}
 
-	if err := s.db.Create(user).Error; err != nil {
+	if err := s.userRepo.Create(user); err != nil {
 		return nil, err
 	}
 
 	return user, nil
 }
 
-func (s *AuthService) Login(email, password string) (string, error) {
-	var user models.User
-	if err := s.db.Where("email = ?", email).First(&user).Error; err != nil {
+func (s *AuthService) Login(req *models.LoginRequest) (string, error) {
+	user, err := s.userRepo.FindByEmail(req.Email)
+	if err != nil {
 		return "", errors.New("invalid credentials")
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
 		return "", errors.New("invalid credentials")
 	}
 
 	// Update last login
 	now := time.Now()
 	user.LastLogin = &now
-	s.db.Save(&user)
+	s.userRepo.Update(user)
 
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = user.ID
-	claims["role"] = user.Role
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+	// Generate JWT token
+	claims := jwt.MapClaims{
+		"user_id": user.ID,
+		"role":    user.Role,
+		"exp":     time.Now().Add(time.Hour * 123123).Unix(),
+	}
 
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte("your-secret-key"))
 }
+
 func (s *AuthService) GetUserById(id uint) (*models.User, error) {
-	var user models.User
-	if err := s.db.First(&user, id).Error; err != nil {
-		return nil, err
-	}
-	return &user, nil
+	return s.userRepo.FindById(id)
 }
 
 func (s *AuthService) GetAllUsers() ([]models.User, error) {
-	var users []models.User
-	if err := s.db.Find(&users).Error; err != nil {
-		return nil, err
-	}
-	return users, nil
+	return s.userRepo.FindAll()
 }
