@@ -6,6 +6,7 @@ import (
 
 	"github.com/aliwert/go-hospital-management/internal/database"
 	"github.com/aliwert/go-hospital-management/internal/handlers"
+	"github.com/aliwert/go-hospital-management/internal/repositories"
 	"github.com/aliwert/go-hospital-management/internal/routes"
 	"github.com/aliwert/go-hospital-management/internal/services"
 	"github.com/gofiber/fiber/v2"
@@ -27,9 +28,10 @@ func main() {
 
 	app.Use(logger.New())
 	app.Use(cors.New())
+	userRepo := repositories.NewUserRepository(database.GetDB())
 
 	// Initialize services and handlers
-	authService := services.NewAuthService(database.GetDB())
+	authService := services.NewAuthService(userRepo)
 	authHandler := handlers.NewAuthHandler(authService)
 
 	// Setup routes
