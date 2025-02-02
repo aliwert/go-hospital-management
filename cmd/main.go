@@ -5,10 +5,7 @@ import (
 	"os"
 
 	"github.com/aliwert/go-hospital-management/internal/database"
-	"github.com/aliwert/go-hospital-management/internal/handlers"
-	"github.com/aliwert/go-hospital-management/internal/repositories"
 	"github.com/aliwert/go-hospital-management/internal/routes"
-	"github.com/aliwert/go-hospital-management/internal/services"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -16,32 +13,33 @@ import (
 )
 
 func main() {
+	// Load .env file
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
+	// Initialize database
 	database.InitDB()
 
+	// Create Fiber app
 	app := fiber.New(fiber.Config{
-		AppName: "Auth Service v1.0",
+		AppName: "Hospital Management System v1.0",
 	})
 
+	// Middleware
 	app.Use(logger.New())
 	app.Use(cors.New())
-	userRepo := repositories.NewUserRepository(database.GetDB())
-
-	// Initialize services and handlers
-	authService := services.NewAuthService(userRepo)
-	authHandler := handlers.NewAuthHandler(authService)
 
 	// Setup routes
-	routes.SetupRoutes(app, authHandler)
+	routes.SetupRoutes(app)
 
+	// Get port from environment
 	port := os.Getenv("APP_PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	log.Printf("Auth Service starting on port %s", port)
+	// Start server
+	log.Printf("Server starting on port %s", port)
 	log.Fatal(app.Listen(":" + port))
 }

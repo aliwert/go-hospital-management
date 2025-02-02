@@ -15,6 +15,7 @@ type Doctor struct {
 	UserID          uint       `json:"user_id"`
 	User            User       `json:"user"`
 	Specialization  string     `json:"specialization"`
+	Name            string     `json:"name" gorm:"unique"`
 	LicenseNumber   string     `json:"license_number"`
 	Experience      int        `json:"experience"`
 	Department      string     `json:"department"`
@@ -38,6 +39,7 @@ type Doctor struct {
 
 type DoctorCreateRequest struct {
 	UserID          uint    `json:"user_id" validate:"required"`
+	Name            string  `json:"name" validate:"required"`
 	Specialization  string  `json:"specialization" validate:"required"`
 	LicenseNumber   string  `json:"license_number" validate:"required"`
 	Experience      int     `json:"experience" validate:"required,min=0"`
@@ -53,13 +55,22 @@ type DoctorCreateRequest struct {
 }
 
 type DoctorUpdateRequest struct {
-	Specialization  string  `json:"specialization,omitempty"`
+	Name            string  `json:"name,omitempty" validate:"omitempty,min=2"`
+	Specialization  string  `json:"specialization,omitempty" validate:"omitempty,min=2"`
+	Experience      int     `json:"experience,omitempty" validate:"omitempty,min=0"`
+	Department      string  `json:"department,omitempty" validate:"omitempty,min=2"`
 	ConsultationFee float64 `json:"consultation_fee,omitempty" validate:"omitempty,gt=0"`
+	Qualifications  string  `json:"qualifications,omitempty"`
+	Languages       string  `json:"languages,omitempty"`
+	Biography       string  `json:"biography,omitempty"`
+	OfficeNumber    string  `json:"office_number,omitempty"`
+	WorkingDays     string  `json:"working_days,omitempty" validate:"omitempty,min=1"`
+	WorkingHours    string  `json:"working_hours,omitempty" validate:"omitempty,min=5"`
+	MaxPatients     int     `json:"max_patients,omitempty" validate:"omitempty,min=0"`
 	Status          string  `json:"status,omitempty" validate:"omitempty,oneof=active inactive on_leave"`
 	Availability    *bool   `json:"availability,omitempty"`
-	WorkingDays     string  `json:"working_days,omitempty"`
-	WorkingHours    string  `json:"working_hours,omitempty"`
-	MaxPatients     int     `json:"max_patients,omitempty" validate:"omitempty,min=0"`
+	Rating          float32 `json:"rating,omitempty" validate:"omitempty,min=0,max=5"`
+	ReviewCount     int     `json:"review_count,omitempty" validate:"omitempty,min=0"`
 }
 
 type DoctorResponse struct {

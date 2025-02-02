@@ -36,7 +36,10 @@ func InitDB() {
 	sqlDB.SetMaxOpenConns(100)
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
-	err = db.AutoMigrate(&models.User{})
+	err = db.AutoMigrate(
+		&models.User{},
+		&models.Doctor{},
+	)
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}
