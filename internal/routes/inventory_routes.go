@@ -18,9 +18,9 @@ func SetupInventoryRoutes(router fiber.Router) {
 	// Inventory routes (all require admin authentication)
 	inventory := router.Group("/inventory", middleware.AuthMiddleware(), middleware.RoleMiddleware("admin"))
 	{
-		inventory.Post("/", inventoryHandler.CreateInventory)
 		inventory.Get("/", inventoryHandler.GetAllInventory)
 		inventory.Get("/:id", inventoryHandler.GetInventory)
+		inventory.Post("/create", inventoryHandler.CreateInventory)
 		inventory.Put("/:id", inventoryHandler.UpdateInventory)
 		inventory.Delete("/:id", inventoryHandler.DeleteInventory)
 	}
