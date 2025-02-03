@@ -19,6 +19,7 @@ func SetupRoutes(app *fiber.App) {
 	// Setup domain-specific routes
 	SetupAuthRoutes(v1)
 	SetupDoctorRoutes(v1)
+	SetupInventoryRoutes(v1)
 
 	// Not found handler
 	app.Use(func(c *fiber.Ctx) error {
