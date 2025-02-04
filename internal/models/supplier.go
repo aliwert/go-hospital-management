@@ -59,3 +59,22 @@ type SupplierResponse struct {
 	Rating        float32 `json:"rating"`
 	IsVerified    bool    `json:"is_verified"`
 }
+
+// Add after SupplierCreateRequest
+type SupplierUpdateRequest struct {
+	Name          string   `json:"name,omitempty" validate:"omitempty,min=2"`
+	Email         string   `json:"email,omitempty" validate:"omitempty,email"`
+	Phone         string   `json:"phone,omitempty"`
+	Address       string   `json:"address,omitempty"`
+	ContactPerson string   `json:"contact_person,omitempty"`
+	ContactPhone  string   `json:"contact_phone,omitempty"`
+	TaxNumber     string   `json:"tax_number,omitempty"`
+	BankAccount   string   `json:"bank_account,omitempty"`
+	PaymentTerms  string   `json:"payment_terms,omitempty"`
+	DeliveryTerms string   `json:"delivery_terms,omitempty"`
+	Website       string   `json:"website,omitempty"`
+	Rating        *float32 `json:"rating,omitempty" validate:"omitempty,min=0,max=5"`
+	Status        string   `json:"status,omitempty" validate:"omitempty,oneof=active inactive blocked"`
+	Notes         string   `json:"notes,omitempty"`
+	IsVerified    *bool    `json:"is_verified,omitempty"`
+}
