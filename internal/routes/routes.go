@@ -22,6 +22,7 @@ func SetupRoutes(app *fiber.App) {
 	SetupInventoryRoutes(v1)
 	SetupSupplierRoutes(v1)
 	SetupDepartmentRoutes(v1)
+	SetupMedicalRecordRoutes(v1)
 
 	// Not found handler
 	app.Use(func(c *fiber.Ctx) error {
