@@ -42,6 +42,7 @@ type UpdateRequest struct {
 	Name     string `json:"name,omitempty" validate:"omitempty,min=2,max=100"`
 	Email    string `json:"email,omitempty" validate:"omitempty,email"`
 	Password string `json:"password,omitempty" validate:"omitempty,min=6"`
+	Role     string `json:"role,omitempty" validate:"omitempty,oneof=admin doctor patient"`
 	Status   *bool  `json:"status,omitempty"`
 }
 

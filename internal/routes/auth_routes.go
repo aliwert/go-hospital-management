@@ -10,27 +10,26 @@ import (
 )
 
 func SetupAuthRoutes(router fiber.Router) {
-	// Initialize auth components
-	userRepo := repositories.NewUserRepository(database.GetDB())
-	authService := services.NewAuthService(userRepo)
+	authRepo := repositories.NewUserRepository(database.GetDB())
+	authService := services.NewAuthService(authRepo)
 	authHandler := handlers.NewAuthHandler(authService)
 
-	// Auth routes (public)
 	auth := router.Group("/auth")
 	{
 		auth.Post("/register", authHandler.Register)
 		auth.Post("/login", authHandler.Login)
+		auth.Post("/refresh", authHandler.RefreshToken)
 	}
 
 	// Protected routes
-	api := router.Group("", middleware.AuthMiddleware())
-	{
-		api.Get("/profile", authHandler.GetProfile)
+	auth.Use(middleware.AuthMiddleware())
+	auth.Get("/profile", authHandler.GetProfile)
 
-		// Admin routes
-		admin := api.Group("/admin", middleware.RoleMiddleware("admin"))
-		{
-			admin.Get("/users", authHandler.GetUsers)
-		}
+	// Admin only routes
+	admin := auth.Group("/users", middleware.RoleMiddleware("admin"))
+	{
+		admin.Get("/", authHandler.GetUsers)
+		admin.Put("/:id", authHandler.UpdateUser)
+		admin.Delete("/:id", authHandler.DeleteUser)
 	}
 }

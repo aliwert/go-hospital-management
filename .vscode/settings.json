@@ -1,0 +1,62 @@
+{
+  "go.lintOnSave": "package",
+  "go.vetOnSave": "workspace",
+  "go.buildTags": "",
+  "go.buildFlags": [],
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [],
+  "go.vetFlags": [],
+  "go.testOnSave": false,
+  "go.coverOnSave": false,
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.formatTool": "gofmt",
+  "go.gopath": "",
+  "go.goroot": "",
+  "go.inferGopath": true,
+  "go.toolsGopath": "",
+  "[go]": {
+    "editor.insertSpaces": false,
+    "editor.formatOnSave": true,
+    "editor.snippetSuggestions": "none"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/tmp": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp": true,
+    "**/vendor/**": true
+  },
+  "explorer.compactFolders": false,
+  "workbench.editor.labelFormat": "short",
+  "editor.rulers": [100],
+  "editor.wordWrapColumn": 100,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.profiles.windows": {
+    "Git Bash": {
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["--login"]
+    }
+  },
+  "go.delveConfig": {
+    "dlvLoadConfig": {
+      "followPointers": true,
+      "maxVariableRecurse": 1,
+      "maxStringLen": 500,
+      "maxArrayValues": 500,
+      "maxStructFields": -1
+    },
+    "apiVersion": 2,
+    "showGlobalVariables": false
+  }
+}

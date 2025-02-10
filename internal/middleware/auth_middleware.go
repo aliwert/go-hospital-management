@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"os"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,7 +19,7 @@ func AuthMiddleware() fiber.Handler {
 
 		tokenString := strings.Replace(authHeader, "Bearer ", "", 1)
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return []byte("your-secret-key"), nil
+			return []byte(os.Getenv("JWT_SECRET")), nil
 		})
 
 		if err != nil || !token.Valid {
@@ -28,7 +29,7 @@ func AuthMiddleware() fiber.Handler {
 		}
 
 		claims := token.Claims.(jwt.MapClaims)
-		c.Locals("user_id", claims["user_id"])
+		c.Locals("user_id", uint(claims["user_id"].(float64)))
 		c.Locals("role", claims["role"])
 
 		return c.Next()
