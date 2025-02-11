@@ -66,3 +66,12 @@ type PrescriptionResponse struct {
 	Status      string                   `json:"status"`
 	Medications []PrescriptionMedication `json:"medications"`
 }
+
+type PrescriptionUpdateRequest struct {
+	Diagnosis   string                   `json:"diagnosis,omitempty"`
+	Notes       string                   `json:"notes,omitempty"`
+	ValidUntil  *time.Time               `json:"valid_until,omitempty"`
+	Status      string                   `json:"status,omitempty" validate:"omitempty,oneof=active expired voided filled"`
+	MaxRefills  *int                     `json:"max_refills,omitempty" validate:"omitempty,min=0"`
+	Medications []PrescriptionMedication `json:"medications,omitempty" validate:"omitempty,min=1"`
+}
