@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/aliwert/go-hospital-management/internal/config"
 	"github.com/aliwert/go-hospital-management/internal/database"
 	"github.com/aliwert/go-hospital-management/internal/routes"
 	"github.com/gofiber/fiber/v2"
@@ -27,7 +26,7 @@ func main() {
 		AppName: "Hospital Management System v1.0",
 	})
 	// initialize aws
-	config.InitAWS()
+	//! config.InitAWS()
 	// Middleware
 	app.Use(logger.New())
 	app.Use(cors.New())
